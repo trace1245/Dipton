@@ -18,9 +18,6 @@ namespace Gipton
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = true;
         }
-
-
-
         public class lol {
         } 
         /// <summary>
