@@ -17,7 +17,7 @@ namespace Gipton
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = true;
-            //z1
+            //z1f dbjkfnb
         }
 
         /// <summary>
