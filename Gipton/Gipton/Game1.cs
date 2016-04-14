@@ -22,6 +22,7 @@ namespace Gipton
 
 
         public class lol {
+            //lololollololo
         } 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
