@@ -16,7 +16,7 @@ namespace Gipton
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
         }
         public class lol {
             //lololollololo
@@ -42,7 +42,7 @@ namespace Gipton
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Texture2D image = Content.Load<Texture2D>("Cont/MegaSprite");
             // TODO: use this.Content to load your game content here
         }
 
