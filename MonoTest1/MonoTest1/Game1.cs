@@ -11,6 +11,10 @@ namespace MonoTest1
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D earth;
+        Texture2D stars;
+        Texture2D guy;
+        Texture2D ship;
 
         public Game1()
         {
@@ -39,8 +43,11 @@ namespace MonoTest1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
+            earth = Content.Load<Texture2D>("Images/earth");
+            stars = Content.Load<Texture2D>("Images/stars");
+            guy = Content.Load<Texture2D>("Images/MegaSprite");
+            ship = Content.Load<Texture2D>("Images/shuttle");
         }
 
         /// <summary>
@@ -74,6 +81,14 @@ namespace MonoTest1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(stars, new Rectangle(0, 0, 800, 480), Color.White);
+            spriteBatch.Draw(earth, new Vector2(400, 240), Color.White);
+            spriteBatch.Draw(ship, new Vector2(450, 240), Color.White);
+            spriteBatch.Draw(guy, new Vector2(100,200), Color.White);
+
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
