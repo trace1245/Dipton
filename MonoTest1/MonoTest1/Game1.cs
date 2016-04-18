@@ -15,16 +15,17 @@ namespace MonoTest1
         Texture2D stars;
         Texture2D guy;
         Texture2D ship;
+        int x = 100;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             //graphics.ToggleFullScreen();
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
+            //graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            //graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            //graphics.IsFullScreen = true;
+            //graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -53,6 +54,10 @@ namespace MonoTest1
             stars = Content.Load<Texture2D>("Images/stars");
             guy = Content.Load<Texture2D>("Images/MegaSprite");
             ship = Content.Load<Texture2D>("Images/shuttle");
+            //ship = new Texture2D(this.GraphicsDevice, 50,50);
+            //Color[] data = new Color[50 * 50];
+            //for(int i = 0; i < data.Length; ++i) data[i] = Color.White;
+            //ship.SetData(data);
         }
 
         /// <summary>
@@ -75,7 +80,7 @@ namespace MonoTest1
                 Exit();
 
             // TODO: Add your update logic here
-
+            
             base.Update(gameTime);
         }
 
@@ -90,11 +95,11 @@ namespace MonoTest1
 
             spriteBatch.Draw(stars, new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height), Color.White);
             spriteBatch.Draw(earth, new Vector2(400, 240), Color.White);
-            spriteBatch.Draw(ship, new Vector2(450, 240), Color.White);
+            spriteBatch.Draw(ship, new Vector2(x++, 240), Color.White);
             spriteBatch.Draw(guy, new Vector2(100, 200), Color.White);
 
             spriteBatch.End();
-
+            
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
