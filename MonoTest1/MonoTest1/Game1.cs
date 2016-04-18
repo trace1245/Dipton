@@ -20,6 +20,11 @@ namespace MonoTest1
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //graphics.ToggleFullScreen();
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -83,10 +88,10 @@ namespace MonoTest1
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
-            spriteBatch.Draw(stars, new Rectangle(0, 0, 800, 480), Color.White);
+            spriteBatch.Draw(stars, new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height), Color.White);
             spriteBatch.Draw(earth, new Vector2(400, 240), Color.White);
             spriteBatch.Draw(ship, new Vector2(450, 240), Color.White);
-            spriteBatch.Draw(guy, new Vector2(100,200), Color.White);
+            spriteBatch.Draw(guy, new Vector2(100, 200), Color.White);
 
             spriteBatch.End();
 
