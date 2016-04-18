@@ -11,6 +11,7 @@ namespace Gipton
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D image;
 
         public Game1()
         {
@@ -18,9 +19,6 @@ namespace Gipton
             Content.RootDirectory = "Content";
             //graphics.IsFullScreen = true;
         }
-        public class lol {
-            //lololollololo
-        } 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -42,7 +40,7 @@ namespace Gipton
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D image = Content.Load<Texture2D>("Cont/MegaSprite");
+            image = Content.Load<Texture2D>("Terrain/GStone");
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,7 +74,13 @@ namespace Gipton
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.LightBlue);
+
+            //spriteBatch.Begin();
+
+            //spriteBatch.Draw(image, new Rectangle(0, 0, 80, 80), Color.White);
+
+            //spriteBatch.End();
 
             // TODO: Add your drawing code here
 
