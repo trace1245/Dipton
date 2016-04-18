@@ -12,6 +12,7 @@ namespace Gipton
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D image;
+        MapGenerator gmap;
 
         public Game1()
         {
@@ -28,7 +29,6 @@ namespace Gipton
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -41,6 +41,7 @@ namespace Gipton
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             image = Content.Load<Texture2D>("Terrain/GStone");
+            gmap = new MapGenerator(image,10);
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,11 +77,12 @@ namespace Gipton
         {
             GraphicsDevice.Clear(Color.LightBlue);
 
-            //spriteBatch.Begin();
+            spriteBatch.Begin();
 
             //spriteBatch.Draw(image, new Rectangle(0, 0, 80, 80), Color.White);
+            gmap.Draw(spriteBatch);
 
-            //spriteBatch.End();
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
