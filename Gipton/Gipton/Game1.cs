@@ -7,6 +7,9 @@ namespace Gipton
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
+    /// 
+    public enum directions { up, ur, right, rd, down, dl, left, lu }
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -65,8 +68,14 @@ namespace Gipton
                 Exit();
 
             // TODO: Add your update logic here
+            if(Keyboard.GetState().IsKeyDown(Keys.Up))
+                gmap.Move(directions.up);
             if(Keyboard.GetState().IsKeyDown(Keys.Right))
-                gmap.Move();
+                gmap.Move(directions.right);
+            if(Keyboard.GetState().IsKeyDown(Keys.Down))
+                gmap.Move(directions.down);
+            if(Keyboard.GetState().IsKeyDown(Keys.Left))
+                gmap.Move(directions.left);
 
 
             base.Update(gameTime);

@@ -16,10 +16,61 @@ namespace Gipton
         //    this.location = location;
         //}
 
-        public void Move()
+        public void Move(directions dir, int speed = 5)
         {
-            Vector2 NewLoc = new Vector2(location.X + 1,location.Y);
-            location = NewLoc;
+            switch(dir)
+            {
+                case directions.up:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X, location.Y + speed);
+                        location = NewLoc;
+                        break;
+                    }
+                case directions.ur:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X - speed, location.Y + speed);
+                        location = NewLoc;
+                        break;
+                    }
+                case directions.right:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X - speed, location.Y);
+                        location = NewLoc;
+                        break;
+                    }
+                case directions.rd:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X - speed, location.Y - speed);
+                        location = NewLoc;
+                        break;
+                    }
+                case directions.down:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X, location.Y - speed);
+                        location = NewLoc;
+                        break;
+                    }
+                case directions.dl:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X + speed, location.Y - speed);
+                        location = NewLoc;
+                        break;
+                    }
+                case directions.left:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X + speed, location.Y);
+                        location = NewLoc;
+                        break;
+                    }
+                case directions.lu:
+                    {
+                        Vector2 NewLoc = new Vector2(location.X + speed, location.Y + speed);
+                        location = NewLoc;
+                        break;
+                    }
+            }
+
+
         }
     }
 }
