@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace Gipton
 {
-    class TerrainPart
+    class TerrainPart : EverySingleObject
     {
         Texture2D texture { get; set; }
-        Vector2 location { get; set; }
+        //Vector2 location { get; set; }
 
         public TerrainPart(Texture2D texture, Vector2 location)
         {

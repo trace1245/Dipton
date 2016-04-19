@@ -28,6 +28,16 @@ namespace Gipton
 
         }
 
+        public void Move()
+        {
+            for(int i = 0; i < size; i++)
+            {
+                for(int j = 0; j < size; j++)
+                {
+                    parts[i, j].Move();
+                }
+            }
+        }
 
         public void Draw(SpriteBatch spritebatch)
         {

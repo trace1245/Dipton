@@ -16,7 +16,6 @@ namespace Gipton
 
         public Game1()
         {
-            //Zweiok branch
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             //graphics.IsFullScreen = true;
@@ -66,6 +65,9 @@ namespace Gipton
                 Exit();
 
             // TODO: Add your update logic here
+            if(Keyboard.GetState().IsKeyDown(Keys.Right))
+                gmap.Move();
+
 
             base.Update(gameTime);
         }
