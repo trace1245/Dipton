@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Gipton
 {
     class Human : EverySingleObject//потом он точно пригодится, я отвечаю
     {
-
+        protected int speed { get; set; }
     }
 }

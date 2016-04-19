@@ -16,6 +16,7 @@ namespace Gipton
         SpriteBatch spriteBatch;
         Texture2D image;
         MapGenerator gmap;
+        PlayerCharacter player;
 
         public Game1()
         {
@@ -45,6 +46,7 @@ namespace Gipton
             spriteBatch = new SpriteBatch(GraphicsDevice);
             image = Content.Load<Texture2D>("Terrain/GStone");
             gmap = new MapGenerator(image,10);
+            player = new PlayerCharacter(gmap);
             // TODO: use this.Content to load your game content here
         }
 
@@ -68,14 +70,7 @@ namespace Gipton
                 Exit();
 
             // TODO: Add your update logic here
-            if(Keyboard.GetState().IsKeyDown(Keys.Up))
-                gmap.Move(directions.up);
-            if(Keyboard.GetState().IsKeyDown(Keys.Right))
-                gmap.Move(directions.right);
-            if(Keyboard.GetState().IsKeyDown(Keys.Down))
-                gmap.Move(directions.down);
-            if(Keyboard.GetState().IsKeyDown(Keys.Left))
-                gmap.Move(directions.left);
+            player.Move();
 
 
             base.Update(gameTime);
