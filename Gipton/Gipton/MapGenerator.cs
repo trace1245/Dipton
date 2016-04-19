@@ -13,11 +13,13 @@ namespace Gipton
         int size { get; set; } //кол-во клеток
         Texture2D[] textures { get; set; }
         TerrainPart[,] parts { get; set; }
+        List<Human> allguys;
 
         public MapGenerator(Texture2D texture, int size)
         {
             this.size = size;
             this.textures = textures;
+            allguys = new List<Human>();
             parts = new TerrainPart[size,size];
             for(int i = 0, x = 0; i < size * 80; i += 80, x++) 
             {
@@ -29,6 +31,12 @@ namespace Gipton
 
         }
 
+        public void AddCreep(Human one)
+        {
+            allguys.Add(one);
+
+        }
+
         public void Move(directions dir, int speed = 5)
         {
             for(int i = 0; i < size; i++)
@@ -37,6 +45,10 @@ namespace Gipton
                 {
                     parts[i, j].Move(dir, speed);
                 }
+            }
+            for(int i = 0; i < allguys.Count; i++)
+            {
+                allguys[i].Move(dir, speed);
             }
         }
 

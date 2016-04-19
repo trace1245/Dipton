@@ -18,12 +18,19 @@ namespace Gipton
         Texture2D playerimg;
         MapGenerator gmap;
         PlayerCharacter player;
+        Creep creep;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             //graphics.IsFullScreen = true;
+            this.Window.Position = new Point(0, 0);
+            this.Window.IsBorderless = true;
+            graphics.ApplyChanges();
         }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -49,6 +56,7 @@ namespace Gipton
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
             gmap = new MapGenerator(image,100);
             player = new PlayerCharacter(playerimg, gmap);
+            creep = new Creep(playerimg, gmap);
             // TODO: use this.Content to load your game content here
         }
 
@@ -72,7 +80,9 @@ namespace Gipton
                 Exit();
 
             // TODO: Add your update logic here
+
             player.Move();
+            creep.Move();
 
 
             base.Update(gameTime);
@@ -91,6 +101,7 @@ namespace Gipton
             //spriteBatch.Draw(image, new Rectangle(0, 0, 80, 80), Color.White);
             gmap.Draw(spriteBatch);
             player.Draw(spriteBatch);
+            creep.Draw(spriteBatch);
             spriteBatch.End();
 
             // TODO: Add your drawing code here
