@@ -11,6 +11,7 @@ namespace Gipton
     class EverySingleObject
     {
         protected Vector2 location { get; set; }
+        protected Texture2D texture { get; set; }
 
         //protected EverySingleObject(Vector2 location)
         //{
@@ -19,6 +20,7 @@ namespace Gipton
 
         public void Move(directions dir, int speed = 5)
         {
+            int hspeed = speed / 2;
             switch(dir)
             {
                 case directions.up:
@@ -29,7 +31,7 @@ namespace Gipton
                     }
                 case directions.ur:
                     {
-                        Vector2 NewLoc = new Vector2(location.X - speed, location.Y + speed);
+                        Vector2 NewLoc = new Vector2(location.X - hspeed, location.Y + hspeed);
                         location = NewLoc;
                         break;
                     }
@@ -41,7 +43,7 @@ namespace Gipton
                     }
                 case directions.rd:
                     {
-                        Vector2 NewLoc = new Vector2(location.X - speed, location.Y - speed);
+                        Vector2 NewLoc = new Vector2(location.X - hspeed, location.Y - hspeed);
                         location = NewLoc;
                         break;
                     }
@@ -53,7 +55,7 @@ namespace Gipton
                     }
                 case directions.dl:
                     {
-                        Vector2 NewLoc = new Vector2(location.X + speed, location.Y - speed);
+                        Vector2 NewLoc = new Vector2(location.X + hspeed, location.Y - hspeed);
                         location = NewLoc;
                         break;
                     }
@@ -65,7 +67,7 @@ namespace Gipton
                     }
                 case directions.lu:
                     {
-                        Vector2 NewLoc = new Vector2(location.X + speed, location.Y + speed);
+                        Vector2 NewLoc = new Vector2(location.X + hspeed, location.Y + hspeed);
                         location = NewLoc;
                         break;
                     }

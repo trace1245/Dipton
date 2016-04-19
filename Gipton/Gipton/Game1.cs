@@ -15,6 +15,7 @@ namespace Gipton
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D image;
+        Texture2D playerimg;
         MapGenerator gmap;
         PlayerCharacter player;
 
@@ -45,8 +46,9 @@ namespace Gipton
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             image = Content.Load<Texture2D>("Terrain/GStone");
-            gmap = new MapGenerator(image,10);
-            player = new PlayerCharacter(image, gmap);
+            playerimg = Content.Load<Texture2D>("Models/RandomGuy");
+            gmap = new MapGenerator(image,100);
+            player = new PlayerCharacter(playerimg, gmap);
             // TODO: use this.Content to load your game content here
         }
 
@@ -88,7 +90,7 @@ namespace Gipton
 
             //spriteBatch.Draw(image, new Rectangle(0, 0, 80, 80), Color.White);
             gmap.Draw(spriteBatch);
-
+            player.Draw(spriteBatch);
             spriteBatch.End();
 
             // TODO: Add your drawing code here

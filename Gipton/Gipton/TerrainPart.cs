@@ -10,7 +10,7 @@ namespace Gipton
 {
     class TerrainPart : EverySingleObject
     {
-        Texture2D texture { get; set; }
+        //Texture2D texture { get; set; }
         //Vector2 location { get; set; }
 
         public TerrainPart(Texture2D texture, Vector2 location)
