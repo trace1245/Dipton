@@ -46,7 +46,7 @@ namespace Gipton
             spriteBatch = new SpriteBatch(GraphicsDevice);
             image = Content.Load<Texture2D>("Terrain/GStone");
             gmap = new MapGenerator(image,10);
-            player = new PlayerCharacter(gmap);
+            player = new PlayerCharacter(image, gmap);
             // TODO: use this.Content to load your game content here
         }
 
