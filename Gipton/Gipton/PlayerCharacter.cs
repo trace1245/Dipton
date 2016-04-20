@@ -32,9 +32,5 @@ namespace Gipton
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, location, Color.White);
-        }
     }
 }

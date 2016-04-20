@@ -13,14 +13,22 @@ namespace Gipton
         protected Vector2 location { get; set; }
         protected Texture2D texture { get; set; }
 
-        //protected EverySingleObject(Vector2 location)
-        //{
-        //    this.location = location;
-        //}
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, location, Color.White);
+        }
+
+        public bool PlayerNear() // проверка на то, должен ли обьект находится на экране. работает, но фигово
+        {
+            if((location.X >= -150 && location.Y >= -150) && (location.X <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width && location.Y <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height))
+                return true;
+                    else
+                return false;
+        }
 
         public void Move(directions dir, int speed = 5)
         {
-            int hspeed = speed / 2;
             switch(dir)
             {
                 case directions.up:
@@ -29,48 +37,28 @@ namespace Gipton
                         location = NewLoc;
                         break;
                     }
-                case directions.ur:
-                    {
-                        Vector2 NewLoc = new Vector2(location.X - hspeed, location.Y + hspeed);
-                        location = NewLoc;
-                        break;
-                    }
+
                 case directions.right:
                     {
                         Vector2 NewLoc = new Vector2(location.X - speed, location.Y);
                         location = NewLoc;
                         break;
                     }
-                case directions.rd:
-                    {
-                        Vector2 NewLoc = new Vector2(location.X - hspeed, location.Y - hspeed);
-                        location = NewLoc;
-                        break;
-                    }
+
                 case directions.down:
                     {
                         Vector2 NewLoc = new Vector2(location.X, location.Y - speed);
                         location = NewLoc;
                         break;
                     }
-                case directions.dl:
-                    {
-                        Vector2 NewLoc = new Vector2(location.X + hspeed, location.Y - hspeed);
-                        location = NewLoc;
-                        break;
-                    }
+
                 case directions.left:
                     {
                         Vector2 NewLoc = new Vector2(location.X + speed, location.Y);
                         location = NewLoc;
                         break;
                     }
-                case directions.lu:
-                    {
-                        Vector2 NewLoc = new Vector2(location.X + hspeed, location.Y + hspeed);
-                        location = NewLoc;
-                        break;
-                    }
+
             }
 
 

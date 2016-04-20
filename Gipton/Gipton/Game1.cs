@@ -8,7 +8,7 @@ namespace Gipton
     /// This is the main type for your game.
     /// </summary>
     /// 
-    public enum directions { up, ur, right, rd, down, dl, left, lu }
+    public enum directions { up, right, down, left}
 
     public class Game1 : Game
     {
@@ -28,8 +28,8 @@ namespace Gipton
             graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             //graphics.IsFullScreen = true;
-            this.Window.Position = new Point(0, 0);
-            this.Window.IsBorderless = true;
+            Window.Position = new Point(0, 0);
+            Window.IsBorderless = true;
             graphics.ApplyChanges();
         }
         /// <summary>

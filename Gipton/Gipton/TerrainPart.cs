@@ -19,12 +19,7 @@ namespace Gipton
             this.location = location;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            //spriteBatch.Begin();
-            spriteBatch.Draw(texture, location, Color.White);
-            //spriteBatch.End();
-        }
+
     }
 }
 
