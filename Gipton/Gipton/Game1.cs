@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -18,7 +22,7 @@ namespace Gipton
         Texture2D playerimg;
         MapGenerator gmap;
         PlayerCharacter player;
-        Creep creep;
+        List<Creep> creeps;
 
         public Game1()
         {
@@ -56,7 +60,7 @@ namespace Gipton
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
             gmap = new MapGenerator(image,100);
             player = new PlayerCharacter(playerimg, gmap);
-            creep = new Creep(playerimg, gmap);
+            creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));
             // TODO: use this.Content to load your game content here
         }
 
@@ -82,7 +86,7 @@ namespace Gipton
             // TODO: Add your update logic here
 
             player.Move();
-            creep.Move();
+            creeps[0].Move();
 
 
             base.Update(gameTime);
@@ -101,7 +105,7 @@ namespace Gipton
             //spriteBatch.Draw(image, new Rectangle(0, 0, 80, 80), Color.White);
             gmap.Draw(spriteBatch);
             player.Draw(spriteBatch);
-            creep.Draw(spriteBatch);
+            creeps.Draw(spriteBatch);
             spriteBatch.End();
 
             // TODO: Add your drawing code here

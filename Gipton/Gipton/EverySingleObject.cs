@@ -10,20 +10,19 @@ namespace Gipton
 {
     class EverySingleObject
     {
-        protected Vector2 location { get; set; }
         protected MapGenerator gmap { get; set; }
-        protected Vector2 maplocation { get; set; } // для системы отсчета относительно карты
+        public maplocation mlocation{ get; set; } // для системы отсчета относительно карты
         protected Texture2D texture { get; set; }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, location, Color.White);
+            spriteBatch.Draw(texture, mlocation.location, Color.White);
         }
 
-        public void MapLocation(Vector2 v)
+        public void GetMapLocation(Vector2 a)
         {
-
+            mlocation.LoadMap(a);
         }
 
         public bool PlayerNear() // проверка на то, должен ли обьект находится на экране. работает, но фигово
@@ -40,29 +39,29 @@ namespace Gipton
             {
                 case directions.up:
                     {
-                        Vector2 NewLoc = new Vector2(location.X, location.Y + speed);
-                        location = NewLoc;
+                        Vector2 NewLoc = new Vector2(mlocation.location.X, mlocation.location.Y + speed);
+                        mlocation.location = NewLoc;
                         break;
                     }
 
                 case directions.right:
                     {
-                        Vector2 NewLoc = new Vector2(location.X - speed, location.Y);
-                        location = NewLoc;
+                        Vector2 NewLoc = new Vector2(mlocation.location.X - speed, mlocation.location.Y);
+                        mlocation.location = NewLoc;
                         break;
                     }
 
                 case directions.down:
                     {
-                        Vector2 NewLoc = new Vector2(location.X, location.Y - speed);
-                        location = NewLoc;
+                        Vector2 NewLoc = new Vector2(mlocation.location.X, mlocation.location.Y - speed);
+                        mlocation.location = NewLoc;
                         break;
                     }
 
                 case directions.left:
                     {
-                        Vector2 NewLoc = new Vector2(location.X + speed, location.Y);
-                        location = NewLoc;
+                        Vector2 NewLoc = new Vector2(mlocation.location.X + speed, mlocation.location.Y);
+                        mlocation.location = NewLoc;
                         break;
                     }
 

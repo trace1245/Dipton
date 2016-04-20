@@ -10,18 +10,18 @@ namespace Gipton
 {
     class Creep : Human
     {
-        public Creep(Texture2D texture, MapGenerator gmap)
+        public Creep(Texture2D texture, MapGenerator gmap, Vector2 location)
         {
             this.gmap = gmap;
             this.texture = texture;
-            location = new Vector2(200,200);
+            mlocation.location = location; // new Vector2(200,200);
             gmap.AddCreep(this);
             speed = 2;
         }
 
         public void Move()
         {
-            location = new Vector2(location.X + 1, location.Y + 1);
+            mlocation.location = new Vector2(mlocation.location.X + 1, mlocation.location.Y + 1);
         }
 
     }

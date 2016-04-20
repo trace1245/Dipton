@@ -14,6 +14,10 @@ namespace Gipton
         Texture2D[] textures { get; set; }
         TerrainPart[,] parts { get; set; }
         List<Human> allguys;
+        Vector2 firstcoo { get; set; } // левая верхняя точка в системе координат (0,0)
+        Vector2 lastcoo { get; set; } // правая нижняя
+
+
 
         public MapGenerator(Texture2D texture, int size)
         {
@@ -63,6 +67,12 @@ namespace Gipton
             }
 
         }
+
+        //void CreateCoordinateSystem()
+        //{
+        //    firstcoo = parts[0, 0].maplocation;
+        //    lastcoo = parts[size, size].maplocation;
+        //}
 
     }
 }
