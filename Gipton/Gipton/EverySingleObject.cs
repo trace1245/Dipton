@@ -21,9 +21,9 @@ namespace Gipton
 
         //public bool PlayerNear() // проверка на то, должен ли обьект находится на экране. работает, но фигово
         //{
-        //    if((location.X >= -150 && location.Y >= -150) && (location.X <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width && location.Y <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height))
+        //    if((location.X >= 0 && location.Y >= 0) && (location.X <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width && location.Y <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height))
         //        return true;
-        //            else
+        //    else
         //        return false;
         //}
 
