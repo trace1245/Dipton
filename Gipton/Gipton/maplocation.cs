@@ -39,6 +39,11 @@ namespace Gipton
             this.position = position;
             location = new Vector2(point.X + position.X, point.Y + position.Y);
         }
+        public void ChangeLocation(Vector2 position)
+        {
+            //this.position = position;
+            location = position;
+        }
 
     }
 }

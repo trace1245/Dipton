@@ -17,6 +17,8 @@ namespace Gipton
             this.gmap = gmap;
             this.texture = texture;
             location = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - texture.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/ 2 - texture.Height / 2);
+            gmap.Move(new Vector2(600,600));
+            
         }
         public void Move()
         {
