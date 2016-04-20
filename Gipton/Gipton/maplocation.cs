@@ -8,22 +8,37 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Gipton
 {
-    struct maplocation
+    class Maplocation
     {
-        float X { get; set; }
-        float Y { get; set; }
-        float iX { get; set; }
-        float iY { get; set; }
-        Vector2 point1 { get; set; }
-        public Vector2 location { get; set; } // для отрисовки на карте
-        public void LoadMap(Vector2 point)
+        protected MapGenerator gmap { get; set; }
+        Vector2 point { get; set; } // точка от которой мы сё считаем (0,0)
+        protected Vector2 location { get; set; } // положение относительно экрана
+        private Vector2 _position; // положение относительно точки
+        protected Vector2 position
         {
-            point1 = point;
-            iX = point.X;
-            iY = point.Y;
-            X = iX - point.X;
-            Y = iY - point.Y;
-            location = new Vector2();
+            get
+            {
+                this.point = gmap.parts[0, 0].GetLocation();
+                return _position;
+            }
+            set
+            {
+                this.point = gmap.parts[0, 0].GetLocation();
+                _position = value;
+            }
         }
+
+        public void LoadMap(Vector2 point, Vector2 position)
+        {
+            this.point = point;
+            this.position = position;
+            location = new Vector2(point.X + position.X, point.Y + position.Y);
+        }
+        public void ChangePosition(Vector2 position)
+        {
+            this.position = position;
+            location = new Vector2(point.X + position.X, point.Y + position.Y);
+        }
+
     }
 }

@@ -12,8 +12,8 @@ namespace Gipton
     {
         int size { get; set; } //кол-во клеток
         Texture2D[] textures { get; set; }
-        TerrainPart[,] parts { get; set; }
-        List<Human> allguys;
+        public TerrainPart[,] parts { get; private set; }
+        List<Human> allguys { get; set; }
         Vector2 firstcoo { get; set; } // левая верхняя точка в системе координат (0,0)
         Vector2 lastcoo { get; set; } // правая нижняя
 
@@ -35,9 +35,10 @@ namespace Gipton
 
         }
 
-        public void AddCreep(Human one)
+        public void AddCreep(Human one, Vector2 position)
         {
             allguys.Add(one);
+            one.LoadMap(parts[0, 0].GetLocation(), position);
 
         }
 

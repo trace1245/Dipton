@@ -16,7 +16,7 @@ namespace Gipton
             speed = 5;
             this.gmap = gmap;
             this.texture = texture;
-            mlocation.location = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - texture.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/ 2 - texture.Height / 2);
+            location = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - texture.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/ 2 - texture.Height / 2);
         }
         public void Move()
         {

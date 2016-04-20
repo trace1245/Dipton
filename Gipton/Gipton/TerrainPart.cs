@@ -16,9 +16,12 @@ namespace Gipton
         public TerrainPart(Texture2D texture, Vector2 location)
         {
             this.texture = texture;
-            mlocation.location = location;
+            this.location = location;
         }
-
+        public Vector2 GetLocation()
+        {
+            return this.location;
+        }
 
     }
 }

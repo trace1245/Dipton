@@ -14,14 +14,15 @@ namespace Gipton
         {
             this.gmap = gmap;
             this.texture = texture;
-            mlocation.location = location; // new Vector2(200,200);
-            gmap.AddCreep(this);
+            //this.location = location; // new Vector2(200,200);
+            gmap.AddCreep(this, new Vector2(50,50));
+
             speed = 2;
         }
 
         public void Move()
         {
-            mlocation.location = new Vector2(mlocation.location.X + 1, mlocation.location.Y + 1);
+            this.ChangePosition(new Vector2(position.X + 1, position.Y + 1));
         }
 
     }

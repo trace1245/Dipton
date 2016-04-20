@@ -60,6 +60,7 @@ namespace Gipton
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
             gmap = new MapGenerator(image,100);
             player = new PlayerCharacter(playerimg, gmap);
+            creeps = new List<Creep>();
             creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));
             // TODO: use this.Content to load your game content here
         }
@@ -105,7 +106,7 @@ namespace Gipton
             //spriteBatch.Draw(image, new Rectangle(0, 0, 80, 80), Color.White);
             gmap.Draw(spriteBatch);
             player.Draw(spriteBatch);
-            creeps.Draw(spriteBatch);
+            creeps[0].Draw(spriteBatch);
             spriteBatch.End();
 
             // TODO: Add your drawing code here
