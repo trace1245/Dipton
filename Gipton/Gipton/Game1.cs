@@ -58,7 +58,7 @@ namespace Gipton
             spriteBatch = new SpriteBatch(GraphicsDevice);
             image = Content.Load<Texture2D>("Terrain/GStone");
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
-            gmap = new MapGenerator(image,250);
+            gmap = new MapGenerator(image,100);
             player = new PlayerCharacter(playerimg, gmap);
             creeps = new List<Creep>();
             creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));
