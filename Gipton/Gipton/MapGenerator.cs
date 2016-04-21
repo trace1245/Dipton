@@ -33,16 +33,17 @@ namespace Gipton
                 }
             }
 
+
         }
 
         public void AddCreep(Human one, Vector2 position)
         {
             allguys.Add(one);
-            one.LoadMap(parts[0, 0].GetLocation(), position);
+            one.LoadMap(parts[0, 0].GetLocation(), new Vector2(size*80 - 1, size*80 - 1));
 
         }
 
-        public void Move(directions dir, int speed = 5)
+        public void Move(directions dir, float speed = 5)
         {
             for(int i = 0; i < size; i++)
             {
@@ -56,20 +57,7 @@ namespace Gipton
                 allguys[i].Move(dir, speed);
             }
         }
-        public void Move(Vector2 newloc)
-        {
-            for(int i = 0; i < size; i++)
-            {
-                for(int j = 0; j < size; j++)
-                {
-                    parts[i, j].ChangeLocation(newloc);
-                }
-            }
-            for(int i = 0; i < allguys.Count; i++)
-            {
-                allguys[i].ChangeLocation(newloc);
-            }
-        }
+
 
         public void Draw(SpriteBatch spritebatch)
         {

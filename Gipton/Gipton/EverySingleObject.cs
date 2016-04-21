@@ -27,7 +27,7 @@ namespace Gipton
         //        return false;
         //}
 
-        public void Move(directions dir, int speed = 5)
+        public void Move(directions dir, float speed = 5)
         {
             switch(dir)
             {

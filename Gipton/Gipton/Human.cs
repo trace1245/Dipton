@@ -10,6 +10,6 @@ namespace Gipton
 {
     class Human : EverySingleObject//потом он точно пригодится, я отвечаю
     {
-        protected int speed { get; set; }
+        protected float speed { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace Gipton
 
         public void Move()
         {
-            this.ChangePosition(new Vector2(position.X + 1, position.Y + 1));
+            //this.ChangePosition(new Vector2(position.X + 1, position.Y + 1));
         }
 
     }
