@@ -10,13 +10,15 @@ namespace Gipton
 {
     class EverySingleObject : Maplocation
     {
-        protected Texture2D texture { get; set; }
+        public Texture2D texture { get; set; }
+        public Rectangle spr { get; private set; }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, location, Color.White);
         }
+
 
 
         //public bool PlayerNear() // проверка на то, должен ли обьект находится на экране. работает, но фигово
@@ -35,6 +37,7 @@ namespace Gipton
                     {
                         Vector2 NewLoc = new Vector2(location.X, location.Y + speed);
                         location = NewLoc;
+                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X / 2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
                         break;
                     }
 
@@ -42,6 +45,7 @@ namespace Gipton
                     {
                         Vector2 NewLoc = new Vector2(location.X - speed, location.Y);
                         location = NewLoc;
+                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X/2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
                         break;
                     }
 
@@ -49,6 +53,7 @@ namespace Gipton
                     {
                         Vector2 NewLoc = new Vector2(location.X, location.Y - speed);
                         location = NewLoc;
+                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X / 2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
                         break;
                     }
 
@@ -56,6 +61,7 @@ namespace Gipton
                     {
                         Vector2 NewLoc = new Vector2(location.X + speed, location.Y);
                         location = NewLoc;
+                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X / 2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
                         break;
                     }
 

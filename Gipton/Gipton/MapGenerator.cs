@@ -13,9 +13,12 @@ namespace Gipton
         int size { get; set; } //кол-во клеток
         Texture2D[] textures { get; set; }
         public TerrainPart[,] parts { get; private set; }
+        public TerrainPart[,,] bparts { get; set; }
         List<Human> allguys { get; set; }
         Vector2 firstcoo { get; set; } // левая верхняя точка в системе координат (0,0)
         Vector2 lastcoo { get; set; } // правая нижняя
+        int blocksize { get; set; }
+        int blockamount { get; set; }
 
 
 
@@ -23,23 +26,29 @@ namespace Gipton
         {
             this.size = size;
             this.textures = textures;
+            blocksize = 5;
+            blockamount = size / blocksize;
             allguys = new List<Human>();
             parts = new TerrainPart[size,size];
-            for(int i = 0, x = 0; i < size * 80; i += 80, x++) 
+            bparts = new TerrainPart[blockamount, size, size];
+            for(int k = 0; k < blockamount; k++) 
             {
-                for(int j = 0, y = 0; j < size * 80; j += 80, y++)
+                for(int i = 0, x = 0; i < size * 80; i += 80, x++)
                 {
-                    parts[x, y] = new TerrainPart(texture, new Vector2(i,j));
+                    for(int j = 0, y = 0; j < size * 80; j += 80, y++)
+                    {
+                        parts[x, y] = new TerrainPart(texture, new Vector2(i, j));
+                        bparts[k, x, y] = parts[x, y];
+                    }
                 }
             }
-
 
         }
 
         public void AddCreep(Human one, Vector2 position)
         {
             allguys.Add(one);
-            one.LoadMap(parts[0, 0].GetLocation(), new Vector2(size*80 - 1, size*80 - 1));
+            one.LoadMap(parts[0, 0].GetLocation(), new Vector2(1000, 1000));
 
         }
 

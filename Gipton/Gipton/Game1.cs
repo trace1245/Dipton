@@ -58,8 +58,8 @@ namespace Gipton
             spriteBatch = new SpriteBatch(GraphicsDevice);
             image = Content.Load<Texture2D>("Terrain/GStone");
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
-            gmap = new MapGenerator(image,5);
-            player = new PlayerCharacter(playerimg, gmap);
+            gmap = new MapGenerator(image,100);
+            player = new PlayerCharacter(playerimg, gmap, new Vector2(500,500));
             creeps = new List<Creep>();
             creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));
             // TODO: use this.Content to load your game content here
@@ -88,6 +88,11 @@ namespace Gipton
 
             player.Move();
             creeps[0].Move();
+
+            if(player.spr.Intersects(new Rectangle(new Point(-1, -1), new Point(10, 10))))
+            {
+                this.Exit();
+            }
 
 
             base.Update(gameTime);

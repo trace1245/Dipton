@@ -10,13 +10,9 @@ namespace Gipton
 {
     class PlayerCharacter : Human // и это тоже
     {
-        float upcount { get; set; }
-        float rightcount { get; set; }
-        float downcount { get; set; }
-        float leftcount { get; set; }
 
 
-        public PlayerCharacter(Texture2D texture, MapGenerator gmap)
+        public PlayerCharacter(Texture2D texture, MapGenerator gmap, Vector2 posi)
         {
             speed = 5;
             this.gmap = gmap;
@@ -25,52 +21,71 @@ namespace Gipton
             rightcount = 0;
             downcount = 0;
             leftcount = 0;
+            bpixels = 0;
             location = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - texture.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/ 2 - texture.Height / 2);
-
-            //gmap.Move(new Vector2(600,600));
+            //position = new Vector2(location.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2, location.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2);
+            MoveTo(posi);
             
         }
+
         public void Move()
         {
             if(Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 gmap.Move(directions.up, speed);
-                if(upcount < 2000)
+                if(upcount < bpixels)
                 {
                     upcount += speed;
                     downcount -= speed;
                 }
                 else
                 {
-                    //
+                    upcount = -bpixels;
+                    downcount = bpixels;
                 }
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 gmap.Move(directions.right, speed);
-                if(rightcount < 2000)
+                if(rightcount < bpixels)
                 {
                     rightcount += speed;
                     leftcount -= speed;
+                }
+                else
+                {
+                    leftcount = bpixels;
+                    rightcount = -bpixels;
                 }
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 gmap.Move(directions.down, speed);
-                if(downcount < 2000)
+                if(downcount < bpixels)
                 {
                     downcount += speed;
                     upcount -= speed;
+                }
+                else
+                {
+                    upcount = bpixels;
+                    downcount = -bpixels;
                 }
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 gmap.Move(directions.left, speed);
-                if(leftcount < 2000)
+                if(leftcount < bpixels)
                 {
                     leftcount += speed;
                     rightcount -= speed;
                 }
+                else
+                {
+                    leftcount = -bpixels;
+                    rightcount = bpixels;
+                }
+
             }
 
 
