@@ -17,6 +17,7 @@ namespace Gipton
         protected float bpixels { get; set; }
 
 
+        public Rectangle spr { get; private set; }
         protected MapGenerator gmap { get; set; }
         Vector2 point { get; set; } // точка от которой мы сё считаем (0,0)
         protected Vector2 location { get; set; } // положение относительно экрана
@@ -38,13 +39,30 @@ namespace Gipton
         public void LoadMap(Vector2 point, Vector2 position) // задаем крипочку положение на карте относительно карты
         {
             this.point = point;
-            this.position = position;
+            this.position = position; //new Vector2(position.X,position.Y);
             location = new Vector2(point.X + position.X, point.Y + position.Y);
+            spr = new Rectangle(location.ToPoint(), new Point(100));
         }
-        public void ChangePosition(Vector2 position) // меняет положение относительно карты, 0 0 - левый верхн угол карты
+        public void ChangePosition(Vector2 position, bool player = true, bool map = false) // меняет положение относительно карты, 0 0 - левый верхн угол карты
         {
-            this.position = position;
-            location = new Vector2(point.X + position.X, point.Y + position.Y);
+            if(!map)
+            {
+                this.position = position;
+                if(!player)
+                {
+                    location = new Vector2(point.X + position.X, point.Y + position.Y);
+                    spr = new Rectangle(location.ToPoint(), new Point(100));
+                }
+            }
+            else
+            {
+                location = position;
+                spr = new Rectangle(location.ToPoint(), new Point(100));
+            }
+                
+                
+
+
         }
 
         public void CheckPosition()

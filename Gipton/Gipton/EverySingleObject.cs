@@ -11,7 +11,6 @@ namespace Gipton
     class EverySingleObject : Maplocation
     {
         public Texture2D texture { get; set; }
-        public Rectangle spr { get; private set; }
 
 
         public void Draw(SpriteBatch spriteBatch)
@@ -29,39 +28,56 @@ namespace Gipton
         //        return false;
         //}
 
-        public void Move(directions dir, float speed = 5)
+        public void Move(directions dir, float speed = 5, bool player = true)
         {
             switch(dir)
             {
                 case directions.up:
                     {
                         Vector2 NewLoc = new Vector2(location.X, location.Y + speed);
-                        location = NewLoc;
-                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X / 2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
+                        if(!player)
+                            NewLoc = new Vector2(position.X, position.Y - 2 * speed);
+                        if(player)
+                            ChangePosition(NewLoc, player, true); //location = NewLoc;
+                        if(!player)
+                            ChangePosition(NewLoc, false);
+
                         break;
                     }
 
                 case directions.right:
                     {
                         Vector2 NewLoc = new Vector2(location.X - speed, location.Y);
-                        location = NewLoc;
-                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X/2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
+                        if(!player)
+                            NewLoc = new Vector2(position.X + 2 * speed, position.Y);
+                        if(player)
+                            ChangePosition(NewLoc, player, true); //location = NewLoc;
+                        if(!player)
+                            ChangePosition(NewLoc, false);
                         break;
                     }
 
                 case directions.down:
                     {
                         Vector2 NewLoc = new Vector2(location.X, location.Y - speed);
-                        location = NewLoc;
-                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X / 2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
+                        if(!player)
+                            NewLoc = new Vector2(position.X, position.Y + (2 * speed));
+                        if(player)
+                            ChangePosition(NewLoc, player, true); //location = NewLoc;
+                        if(!player)
+                            ChangePosition(NewLoc, false);
                         break;
                     }
 
                 case directions.left:
                     {
                         Vector2 NewLoc = new Vector2(location.X + speed, location.Y);
-                        location = NewLoc;
-                        spr = new Rectangle(new Point(texture.Bounds.Location.X + texture.Bounds.Size.X / 2, texture.Bounds.Location.Y + texture.Bounds.Size.Y / 2), new Point(100, 100));
+                        if(!player)
+                            NewLoc = new Vector2(position.X - 2 * speed, position.Y);
+                        if(player)
+                            ChangePosition(NewLoc, player, true); //location = NewLoc;
+                        if(!player)
+                            ChangePosition(NewLoc, false);
                         break;
                     }
 

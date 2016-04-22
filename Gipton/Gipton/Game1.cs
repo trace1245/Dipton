@@ -20,6 +20,7 @@ namespace Gipton
         SpriteBatch spriteBatch;
         Texture2D image;
         Texture2D playerimg;
+        Texture2D red;
         MapGenerator gmap;
         PlayerCharacter player;
         List<Creep> creeps;
@@ -58,10 +59,13 @@ namespace Gipton
             spriteBatch = new SpriteBatch(GraphicsDevice);
             image = Content.Load<Texture2D>("Terrain/GStone");
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
+            red = Content.Load<Texture2D>("Cont/red");
             gmap = new MapGenerator(image,100);
             player = new PlayerCharacter(playerimg, gmap, new Vector2(500,500));
             creeps = new List<Creep>();
             creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));
+            creeps.Add(new Creep(playerimg, gmap, new Vector2(1000, 1000)));
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -87,12 +91,15 @@ namespace Gipton
             // TODO: Add your update logic here
 
             player.Move();
-            creeps[0].Move();
+            creeps[0].Move(directions.down, 1, false);
+            creeps[0].Move(directions.right, 1, false);
 
-            if(player.spr.Intersects(new Rectangle(new Point(-1, -1), new Point(10, 10))))
-            {
+            //if(player.spr.Intersects(new Rectangle(new Point(-1, -1), new Point(10, 10))))
+            //{
+            //    this.Exit();
+            //}
+            if(creeps[0].spr.Intersects(creeps[1].spr))
                 this.Exit();
-            }
 
 
             base.Update(gameTime);
@@ -107,11 +114,14 @@ namespace Gipton
             GraphicsDevice.Clear(Color.LightBlue);
 
             spriteBatch.Begin();
-
-            //spriteBatch.Draw(image, new Rectangle(0, 0, 80, 80), Color.White);
+            
             gmap.Draw(spriteBatch);
             player.Draw(spriteBatch);
             creeps[0].Draw(spriteBatch);
+            creeps[1].Draw(spriteBatch);
+            spriteBatch.Draw(red,creeps[0].spr,Color.White);
+            spriteBatch.Draw(red, creeps[1].spr, Color.White);
+
             spriteBatch.End();
 
             // TODO: Add your drawing code here

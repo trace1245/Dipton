@@ -23,7 +23,7 @@ namespace Gipton
             leftcount = 0;
             bpixels = 0;
             location = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - texture.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/ 2 - texture.Height / 2);
-            //position = new Vector2(location.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2, location.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2);
+            position = new Vector2(location.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2, location.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2);
             MoveTo(posi);
             
         }
@@ -32,7 +32,8 @@ namespace Gipton
         {
             if(Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                gmap.Move(directions.up, speed);
+                gmap.Move(directions.up, speed, true);
+                ChangePosition(position + new Vector2(0, -speed), true);
                 if(upcount < bpixels)
                 {
                     upcount += speed;
@@ -46,7 +47,8 @@ namespace Gipton
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                gmap.Move(directions.right, speed);
+                gmap.Move(directions.right, speed, true);
+                ChangePosition(position + new Vector2(speed, 0), true);
                 if(rightcount < bpixels)
                 {
                     rightcount += speed;
@@ -60,7 +62,8 @@ namespace Gipton
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                gmap.Move(directions.down, speed);
+                gmap.Move(directions.down, speed, true);
+                ChangePosition(position + new Vector2(0, speed), true);
                 if(downcount < bpixels)
                 {
                     downcount += speed;
@@ -74,7 +77,8 @@ namespace Gipton
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                gmap.Move(directions.left, speed);
+                gmap.Move(directions.left, speed, true);
+                ChangePosition(position + new Vector2(-speed, 0), true);
                 if(leftcount < bpixels)
                 {
                     leftcount += speed;
@@ -93,8 +97,8 @@ namespace Gipton
 
         public void MoveTo(Vector2 v)
         {
-            gmap.Move(directions.right, v.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2);
-            gmap.Move(directions.down, v.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2);
+            gmap.Move(directions.right, v.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2, true);
+            gmap.Move(directions.down, v.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2, true);
         }
 
     }

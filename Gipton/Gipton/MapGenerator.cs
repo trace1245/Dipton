@@ -48,22 +48,22 @@ namespace Gipton
         public void AddCreep(Human one, Vector2 position)
         {
             allguys.Add(one);
-            one.LoadMap(parts[0, 0].GetLocation(), new Vector2(1000, 1000));
+            one.LoadMap(parts[0, 0].GetLocation(), position);
 
         }
 
-        public void Move(directions dir, float speed = 5)
+        public void Move(directions dir, float speed = 5, bool player = true)
         {
             for(int i = 0; i < size; i++)
             {
                 for(int j = 0; j < size; j++)
                 {
-                    parts[i, j].Move(dir, speed);
+                    parts[i, j].Move(dir, speed, player);
                 }
             }
             for(int i = 0; i < allguys.Count; i++)
             {
-                allguys[i].Move(dir, speed);
+                allguys[i].Move(dir, speed, player);
             }
         }
 
