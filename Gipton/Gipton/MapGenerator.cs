@@ -14,11 +14,13 @@ namespace Gipton
         Texture2D[] textures { get; set; }
         public TerrainPart[,] parts { get; private set; }
         public TerrainPart[,,] bparts { get; set; }
-        List<Human> allguys { get; set; }
+        List<EverySingleObject> allguys { get; set; }
+        PlayerCharacter player { get; set; }
         Vector2 firstcoo { get; set; } // левая верхняя точка в системе координат (0,0)
         Vector2 lastcoo { get; set; } // правая нижняя
         int blocksize { get; set; }
         int blockamount { get; set; }
+
 
 
 
@@ -28,7 +30,7 @@ namespace Gipton
             this.textures = textures;
             blocksize = 5;
             blockamount = size / blocksize;
-            allguys = new List<Human>();
+            allguys = new List<EverySingleObject>();
             parts = new TerrainPart[size,size];
             bparts = new TerrainPart[blockamount, size, size];
             for(int k = 0; k < blockamount; k++) 
@@ -45,11 +47,15 @@ namespace Gipton
 
         }
 
-        public void AddCreep(Human one, Vector2 position)
+        public void AddCreep(EverySingleObject one, Vector2 position)
         {
             allguys.Add(one);
             one.LoadMap(parts[0, 0].GetLocation(), position);
 
+        }
+        public void AddPlayer(PlayerCharacter player)
+        {
+            this.player = player;
         }
 
         public void Move(directions dir, float speed = 5)

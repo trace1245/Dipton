@@ -62,6 +62,7 @@ namespace Gipton
             red = Content.Load<Texture2D>("Cont/red");
             gmap = new MapGenerator(image,100);
             player = new PlayerCharacter(playerimg, gmap, new Vector2(500,500));
+            gmap.AddPlayer(player);
             creeps = new List<Creep>();
             creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));
             creeps.Add(new Creep(playerimg, gmap, new Vector2(1000, 1000)));
@@ -121,6 +122,7 @@ namespace Gipton
             creeps[1].Draw(spriteBatch);
             spriteBatch.Draw(red,creeps[0].spr,Color.White);
             spriteBatch.Draw(red, creeps[1].spr, Color.White);
+            spriteBatch.Draw(red, player.spr, Color.White);
 
             spriteBatch.End();
 

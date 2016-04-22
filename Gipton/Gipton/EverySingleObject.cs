@@ -10,8 +10,7 @@ namespace Gipton
 {
     class EverySingleObject : Maplocation
     {
-        public Texture2D texture { get; set; }
-
+        protected float speed { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {

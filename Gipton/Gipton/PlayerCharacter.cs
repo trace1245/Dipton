@@ -23,10 +23,9 @@ namespace Gipton
             downcount = 0;
             leftcount = 0;
             bpixels = 0;
-            location = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - texture.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/ 2 - texture.Height / 2);
-            position = new Vector2(location.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2, location.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2);
+            LoadMap(gmap.parts[0, 0].GetLocation(), posi);
             MoveTo(posi);
-            
+
         }
 
         public void Move()
