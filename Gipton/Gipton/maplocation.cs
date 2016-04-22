@@ -16,7 +16,8 @@ namespace Gipton
         protected float leftcount { get; set; }
         protected float bpixels { get; set; }
 
-
+        public bool player { get; protected set; }
+        public bool map { get; protected set; }
         public Rectangle spr { get; private set; }
         protected MapGenerator gmap { get; set; }
         Vector2 point { get; set; } // точка от которой мы сё считаем (0,0)
@@ -43,7 +44,7 @@ namespace Gipton
             location = new Vector2(point.X + position.X, point.Y + position.Y);
             spr = new Rectangle(location.ToPoint(), new Point(100));
         }
-        public void ChangePosition(Vector2 position, bool player = true, bool map = false) // меняет положение относительно карты, 0 0 - левый верхн угол карты
+        public void ChangePosition(Vector2 position) // меняет положение относительно карты, 0 0 - левый верхн угол карты
         {
             if(!map)
             {

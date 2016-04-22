@@ -52,18 +52,18 @@ namespace Gipton
 
         }
 
-        public void Move(directions dir, float speed = 5, bool player = true)
+        public void Move(directions dir, float speed = 5)
         {
             for(int i = 0; i < size; i++)
             {
                 for(int j = 0; j < size; j++)
                 {
-                    parts[i, j].Move(dir, speed, player);
+                    parts[i, j].Move(dir, speed);
                 }
             }
             for(int i = 0; i < allguys.Count; i++)
             {
-                allguys[i].Move(dir, speed, player);
+                allguys[i].Move(dir, speed, true);
             }
         }
 

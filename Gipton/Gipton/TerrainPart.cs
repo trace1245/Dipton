@@ -15,6 +15,8 @@ namespace Gipton
 
         public TerrainPart(Texture2D texture, Vector2 location)
         {
+            map = true;
+            player = true;
             this.texture = texture;
             this.location = location;
         }

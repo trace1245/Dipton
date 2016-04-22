@@ -28,8 +28,13 @@ namespace Gipton
         //        return false;
         //}
 
-        public void Move(directions dir, float speed = 5, bool player = true)
+        public void Move(directions dir, float speed = 5, bool map = false)
         {
+            if(map)
+            {
+                this.map = true;
+                this.player = true;
+            }
             switch(dir)
             {
                 case directions.up:
@@ -37,10 +42,7 @@ namespace Gipton
                         Vector2 NewLoc = new Vector2(location.X, location.Y + speed);
                         if(!player)
                             NewLoc = new Vector2(position.X, position.Y - 2 * speed);
-                        if(player)
-                            ChangePosition(NewLoc, player, true); //location = NewLoc;
-                        if(!player)
-                            ChangePosition(NewLoc, false);
+                        ChangePosition(NewLoc); //location = NewLoc;
 
                         break;
                     }
@@ -50,10 +52,7 @@ namespace Gipton
                         Vector2 NewLoc = new Vector2(location.X - speed, location.Y);
                         if(!player)
                             NewLoc = new Vector2(position.X + 2 * speed, position.Y);
-                        if(player)
-                            ChangePosition(NewLoc, player, true); //location = NewLoc;
-                        if(!player)
-                            ChangePosition(NewLoc, false);
+                        ChangePosition(NewLoc); //location = NewLoc;
                         break;
                     }
 
@@ -62,10 +61,7 @@ namespace Gipton
                         Vector2 NewLoc = new Vector2(location.X, location.Y - speed);
                         if(!player)
                             NewLoc = new Vector2(position.X, position.Y + (2 * speed));
-                        if(player)
-                            ChangePosition(NewLoc, player, true); //location = NewLoc;
-                        if(!player)
-                            ChangePosition(NewLoc, false);
+                        ChangePosition(NewLoc); //location = NewLoc;
                         break;
                     }
 
@@ -74,13 +70,15 @@ namespace Gipton
                         Vector2 NewLoc = new Vector2(location.X + speed, location.Y);
                         if(!player)
                             NewLoc = new Vector2(position.X - 2 * speed, position.Y);
-                        if(player)
-                            ChangePosition(NewLoc, player, true); //location = NewLoc;
-                        if(!player)
-                            ChangePosition(NewLoc, false);
+                        ChangePosition(NewLoc); //location = NewLoc;
                         break;
                     }
 
+            }
+            if(map)
+            {
+                this.player = false;
+                this.map = false;
             }
 
 

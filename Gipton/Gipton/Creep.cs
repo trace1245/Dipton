@@ -10,8 +10,10 @@ namespace Gipton
 {
     class Creep : Human
     {
+        
         public Creep(Texture2D texture, MapGenerator gmap, Vector2 position)
         {
+            player = false;
             this.gmap = gmap;
             this.texture = texture;
             //this.location = location; // new Vector2(200,200);
