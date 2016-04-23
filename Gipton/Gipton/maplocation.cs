@@ -72,6 +72,7 @@ namespace Gipton
                 }
                 if(!player)
                 {
+                    this.position = position;
                     location = new Vector2(point.X + position.X, point.Y + position.Y);
                     spr = new Rectangle(location.ToPoint(), new Point(100));
                 }
