@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Threading;
 
 namespace Gipton
 {
@@ -103,15 +104,29 @@ namespace Gipton
         {
             if(count == 0)
             {
-                UpdatePlayerPosition();
+                ThreadStart updatePP0 = new ThreadStart(delegate() { UpdatePlayerPosition(0, (blockamount*blockamount)/5); });
+                ThreadStart updatePP1 = new ThreadStart(delegate () { UpdatePlayerPosition((blockamount * blockamount) / 5, ((blockamount * blockamount) / 5) * 2); });
+                ThreadStart updatePP2 = new ThreadStart(delegate () { UpdatePlayerPosition(((blockamount * blockamount) / 5) * 2, ((blockamount * blockamount) / 5) * 3); });
+                ThreadStart updatePP3 = new ThreadStart(delegate () { UpdatePlayerPosition(((blockamount * blockamount) / 5) * 3, ((blockamount * blockamount) / 5) * 4); });
+                ThreadStart updatePP4 = new ThreadStart(delegate () { UpdatePlayerPosition(((blockamount * blockamount) / 5) * 4, blockamount); });
+                Thread newThread0 = new Thread(updatePP0);
+                Thread newThread1 = new Thread(updatePP1);
+                Thread newThread2 = new Thread(updatePP2);
+                Thread newThread3 = new Thread(updatePP3);
+                Thread newThread4 = new Thread(updatePP4);
+                newThread0.Start();
+                newThread1.Start();
+                newThread2.Start();
+                newThread3.Start();
+                newThread4.Start();
                 count = 180;
             }
             count--;
         }
 
-        public void UpdatePlayerPosition()
+        public void UpdatePlayerPosition(int kk, int bblockamount)
         {
-            for(int k = 0; k < blockamount * blockamount; k++)
+            for(int k = kk; k < bblockamount; k++)
             {
                 for(int i = 0; i < blocksize; i++)
                 {
@@ -127,9 +142,13 @@ namespace Gipton
                     }
                 }
             }
+            if(bblockamount == blockamount)
+            {
             player.CountToZero();
             playerposition = CheckPositionOnMap(player);
+            }
         }
+
 
         public void Move(directions dir, float speed = 5)
         {
