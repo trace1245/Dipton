@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Gipton
 {
-    class Creep : Human
+    class Creep : EverySingleObject
     {
         
         public Creep(Texture2D texture, MapGenerator gmap, Vector2 position)

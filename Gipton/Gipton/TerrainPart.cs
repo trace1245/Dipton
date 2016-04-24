@@ -12,6 +12,7 @@ namespace Gipton
     {
         //Texture2D texture { get; set; }
         //Vector2 location { get; set; }
+        public bool MiddlePart { get; private set; }
 
         public TerrainPart(Texture2D texture, Vector2 location)
         {
@@ -23,6 +24,10 @@ namespace Gipton
         public Vector2 GetLocation()
         {
             return this.location;
+        }
+        public void MakeMiddle()
+        {
+            MiddlePart = true;
         }
 
     }

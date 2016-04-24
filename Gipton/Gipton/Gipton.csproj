@@ -41,7 +41,6 @@
     <Compile Include="Creep.cs" />
     <Compile Include="EverySingleObject.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Human.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="Maplocation.cs" />
     <Compile Include="PlayerCharacter.cs" />

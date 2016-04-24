@@ -29,7 +29,7 @@ namespace Gipton
         {
             this.size = size;
             this.textures = textures;
-            blocksize = 2;
+            blocksize = 20;
             blockamount = size / blocksize;
             allguys = new List<EverySingleObject>();
             MiddlePoints = new List<Vector2>();
@@ -56,7 +56,11 @@ namespace Gipton
                 {
                     for(int j = 0; j < blocksize; j++)
                     {
-                            bparts[k, i, j] = parts[i + ii, j + jj];
+                        bparts[k, i, j] = parts[i + ii, j + jj];
+                        if(i == 0 && j == 0) // если достигнут крайний нижний блок
+                        {
+                            //MiddlePoints.Add(new Vector2(bparts[k, i, j].GetLocation().X +));
+                        }
                     }
                 }
 
@@ -64,35 +68,23 @@ namespace Gipton
 
             }
 
-            int fds = 3;
-            //blocksize * (k+1) + (i-blocksize)
-            //
-            //for(int i = 0; i < size; i++)
-            //{
-            //    for(int j = 0; j < size; j++)
-            //    {
-            //        //parts[i, j]
-            //    }
-            //}
         }
 
-        void CheckPosition()
+        int CheckPosition(EverySingleObject someone)
         {
-            int blocknumber;
-
-            //for(int k = 0; k < blockamount; k++)
-            //{
-            //    for(int i = 0, x = 0; i < size * 80; i += 80, x++)
-            //    {
-            //        for(int j = 0, y = 0; j < size * 80; j += 80, y++)
-            //        {
-            //            if(player.spr.Intersects(bparts[k,i,j].spr))
-            //            {
-            //                blocknumber = k;
-            //            }
-            //        }
-            //    }
-            //}
+            
+            for(int k = 0; k < blockamount * blockamount; k++)
+            {
+                for(int i = 0; i < blocksize; i++)
+                {
+                    for(int j = 0; j < blocksize; j++)
+                    {
+                        if(someone.spr.Intersects(bparts[k, i, j].spr))
+                            return k;
+                    }
+                }
+            }
+            return -1;
         }
 
         public void AddCreep(EverySingleObject one, Vector2 position)
@@ -124,24 +116,56 @@ namespace Gipton
 
         public void Draw(SpriteBatch spritebatch)
         {
-            //for(int i = 0; i<size;i++)
+            //for(int i = 0; i<size;i++) // отрисовка всей карты
             //{
             //    for(int j = 0; j < size; j++)
             //    {
             //        parts[i, j].Draw(spritebatch);
             //    }
             //}
-            for(int k = 0; k < blockamount*blockamount; k++)
+
+
+            //for(int k = 0; k < blockamount*blockamount; k++) // отрисовка всей карты через bparts
+            //{
+            //    for(int i = 0; i < blocksize; i++)
+            //    {
+            //        for(int j = 0; j < blocksize; j++)
+            //        {
+            //            bparts[k, i, j].Draw(spritebatch);
+            //        }
+            //    }
+            //}
+
+            int nk = CheckPosition(player);
+
+            if(nk!=-1)
             {
                 for(int i = 0; i < blocksize; i++)
                 {
                     for(int j = 0; j < blocksize; j++)
                     {
-                        bparts[k, i, j].Draw(spritebatch);
+                            bparts[nk, i, j].Draw(spritebatch); // центральный блок
+                        if(nk + 1 < blockamount * blockamount)
+                            bparts[nk + 1, i, j].Draw(spritebatch); // нижний блок
+                        if(nk - 1 >= 0)
+                            bparts[nk - 1, i, j].Draw(spritebatch); // верхний блок
+                        if(nk - blockamount - 1 >= 0)
+                            bparts[nk - blockamount - 1, i, j].Draw(spritebatch); //левый  верхний блок
+                        if(nk - blockamount + 1 > 0)
+                            bparts[nk - blockamount + 1, i, j].Draw(spritebatch);// левый нижний
+                        if(nk - blockamount >= 0)
+                            bparts[nk - blockamount, i, j].Draw(spritebatch); // левый
+                        if(nk + blockamount < blockamount * blockamount)
+                            bparts[nk + blockamount, i, j].Draw(spritebatch); //правый блок
+                        if(nk + blockamount - 1 < blockamount*blockamount)
+                            bparts[nk + blockamount - 1, i, j].Draw(spritebatch); //правый верхний блок
+                        if(nk + blockamount + 1 < blockamount * blockamount)
+                            bparts[nk + blockamount + 1, i, j].Draw(spritebatch); // правый нижний
+
                     }
                 }
-
             }
+
 
         }
 

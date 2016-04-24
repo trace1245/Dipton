@@ -57,7 +57,7 @@ namespace Gipton
                 this.point = point;
                 this.position = position; //new Vector2(position.X,position.Y);
                 location = new Vector2(point.X + position.X, point.Y + position.Y);
-                spr = new Rectangle(location.ToPoint(), new Point(80));
+                spr = new Rectangle(location.ToPoint(), new Point(this.texture.Width, this.texture.Height));
             }
 
         }
@@ -74,13 +74,13 @@ namespace Gipton
                 {
                     this.position = position;
                     location = new Vector2(point.X + position.X, point.Y + position.Y);
-                    spr = new Rectangle(location.ToPoint(), new Point(100));
+                    spr = new Rectangle(location.ToPoint(), new Point(this.texture.Width, this.texture.Height));
                 }
             }
             else
             {
                 location = position;
-                spr = new Rectangle(location.ToPoint(), new Point(100));
+                spr = new Rectangle(location.ToPoint(), new Point(this.texture.Width,this.texture.Height));
             }
                 
                 

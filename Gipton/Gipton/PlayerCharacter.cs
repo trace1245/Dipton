@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Gipton
 {
-    class PlayerCharacter : Human // и это тоже
+    class PlayerCharacter : EverySingleObject
     {
 
 
