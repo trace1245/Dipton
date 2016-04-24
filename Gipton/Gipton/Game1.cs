@@ -61,7 +61,7 @@ namespace Gipton
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
             red = Content.Load<Texture2D>("Cont/red");
             gmap = new MapGenerator(image,100);
-            player = new PlayerCharacter(playerimg, gmap, new Vector2(2000,2000));
+            player = new PlayerCharacter(playerimg, gmap, new Vector2(0,0));
             gmap.AddPlayer(player);
             creeps = new List<Creep>();
             creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));

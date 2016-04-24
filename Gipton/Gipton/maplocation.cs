@@ -88,9 +88,9 @@ namespace Gipton
 
         }
 
-        public void CheckPosition()
+        public Vector2 CheckPosition()
         {
-
+            return new Vector2(position.X,position.Y);
         }
         //public void ChangeLocation(Vector2 position) // 
         //{

@@ -14,11 +14,8 @@ namespace Gipton
         Texture2D[] textures { get; set; }
         public TerrainPart[,] parts { get; private set; }
         public TerrainPart[,,] bparts { get; set; }
-        List<Vector2> MiddlePoints { get; set; }
         List<EverySingleObject> allguys { get; set; }
         PlayerCharacter player { get; set; }
-        Vector2 firstcoo { get; set; } // левая верхняя точка в системе координат (0,0)
-        Vector2 lastcoo { get; set; } // правая нижняя
         int blocksize { get; set; }
         int blockamount { get; set; }
 
@@ -32,11 +29,10 @@ namespace Gipton
             blocksize = 20;
             blockamount = size / blocksize;
             allguys = new List<EverySingleObject>();
-            MiddlePoints = new List<Vector2>();
             parts = new TerrainPart[size,size];
             bparts = new TerrainPart[blockamount * blockamount, blocksize, blocksize];
 
-            for(int i = 0, x = 0; i < size * 80; i += 80, x++)
+            for(int i = 0, x = 0; i < size * 80; i += 80, x++) // заполняем карту блоками
             {
                 for(int j = 0, y = 0; j < size * 80; j += 80, y++)
                 {
@@ -44,7 +40,7 @@ namespace Gipton
                 }
             }
 
-            for(int k = 0, ii = 0, jj = 0; k < blockamount * blockamount; k++)
+            for(int k = 0, ii = 0, jj = 0; k < blockamount * blockamount; k++) // разбиваем карту на прогружаемые блоки
             {
                 if((k % blockamount == 0) && (k!= 0))
                 {
@@ -57,9 +53,9 @@ namespace Gipton
                     for(int j = 0; j < blocksize; j++)
                     {
                         bparts[k, i, j] = parts[i + ii, j + jj];
-                        if(i == 0 && j == 0) // если достигнут крайний нижний блок
+                        if(i == blocksize - 1 && j == blocksize - 1) // если достигнут крайний нижний блок
                         {
-                            //MiddlePoints.Add(new Vector2(bparts[k, i, j].GetLocation().X +));
+                            bparts[k, blocksize / 2, blocksize / 2].MakeMiddle(); // задаем центральный блок в прогружаемом блоке
                         }
                     }
                 }
@@ -70,7 +66,7 @@ namespace Gipton
 
         }
 
-        int CheckPosition(EverySingleObject someone)
+        public int CheckPositionOnMap(EverySingleObject someone) // проверяет, на каком из прогружаемых блоков стоит игрок
         {
             
             for(int k = 0; k < blockamount * blockamount; k++)
@@ -84,7 +80,7 @@ namespace Gipton
                     }
                 }
             }
-            return -1;
+            return -1; // даем -1 если игрок не на карте
         }
 
         public void AddCreep(EverySingleObject one, Vector2 position)
@@ -100,6 +96,9 @@ namespace Gipton
 
         public void Move(directions dir, float speed = 5)
         {
+
+
+
             for(int i = 0; i < size; i++)
             {
                 for(int j = 0; j < size; j++)
@@ -109,36 +108,15 @@ namespace Gipton
             }
             for(int i = 0; i < allguys.Count; i++)
             {
-                allguys[i].Move(dir, speed, true);
+                allguys[i].Move(dir, speed, true); // true сдесь значит, что это игрок двигает карту и заодно и все остальное
             }
         }
 
 
         public void Draw(SpriteBatch spritebatch)
         {
-            //for(int i = 0; i<size;i++) // отрисовка всей карты
-            //{
-            //    for(int j = 0; j < size; j++)
-            //    {
-            //        parts[i, j].Draw(spritebatch);
-            //    }
-            //}
-
-
-            //for(int k = 0; k < blockamount*blockamount; k++) // отрисовка всей карты через bparts
-            //{
-            //    for(int i = 0; i < blocksize; i++)
-            //    {
-            //        for(int j = 0; j < blocksize; j++)
-            //        {
-            //            bparts[k, i, j].Draw(spritebatch);
-            //        }
-            //    }
-            //}
-
-            int nk = CheckPosition(player);
-
-            if(nk!=-1)
+            int nk = CheckPositionOnMap(player); // дальше отрисовка 9 блоков возле игрока
+            if(nk!=-1) // если игрок вообще стоит на карте. nk - это элемент k трехмерного массива, на котором стоит игрок
             {
                 for(int i = 0; i < blocksize; i++)
                 {
@@ -162,6 +140,26 @@ namespace Gipton
                         if(nk + blockamount + 1 < blockamount * blockamount)
                             bparts[nk + blockamount + 1, i, j].Draw(spritebatch); // правый нижний
 
+
+                        //for(int i = 0; i<size;i++) // отрисовка всей карты
+                        //{
+                        //    for(int j = 0; j < size; j++)
+                        //    {
+                        //        parts[i, j].Draw(spritebatch);
+                        //    }
+                        //}
+
+
+                        //for(int k = 0; k < blockamount*blockamount; k++) // отрисовка всей карты через bparts
+                        //{
+                        //    for(int i = 0; i < blocksize; i++)
+                        //    {
+                        //        for(int j = 0; j < blocksize; j++)
+                        //        {
+                        //            bparts[k, i, j].Draw(spritebatch);
+                        //        }
+                        //    }
+                        //}
                     }
                 }
             }
@@ -169,11 +167,6 @@ namespace Gipton
 
         }
 
-        //void CreateCoordinateSystem()
-        //{
-        //    firstcoo = parts[0, 0].maplocation;
-        //    lastcoo = parts[size, size].maplocation;
-        //}
 
     }
 }
