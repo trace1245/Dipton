@@ -60,9 +60,8 @@ namespace Gipton
             image = Content.Load<Texture2D>("Terrain/GStone");
             playerimg = Content.Load<Texture2D>("Models/RandomGuy");
             red = Content.Load<Texture2D>("Cont/red");
-            gmap = new MapGenerator(image,100);
-            player = new PlayerCharacter(playerimg, gmap, new Vector2(0,0));
-            gmap.AddPlayer(player);
+            gmap = new MapGenerator(image,500);
+            player = new PlayerCharacter(playerimg, gmap, new Vector2(1500,1500));
             creeps = new List<Creep>();
             creeps.Add(new Creep(playerimg, gmap, new Vector2(200,200)));
             creeps.Add(new Creep(playerimg, gmap, new Vector2(1000, 1000)));
@@ -91,6 +90,7 @@ namespace Gipton
 
             // TODO: Add your update logic here
 
+            gmap.Update();
             player.Move();
             //creeps[0].Move(directions.down, 1);
             creeps[0].Move(directions.right, 1);

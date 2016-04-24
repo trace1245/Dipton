@@ -18,13 +18,11 @@ namespace Gipton
             speed = 5;
             this.gmap = gmap;
             this.texture = texture;
-            upcount = 0;
-            rightcount = 0;
-            downcount = 0;
-            leftcount = 0;
-            bpixels = 0;
+            xcount = 0;
+            ycount = 0;
             LoadMap(gmap.parts[0, 0].GetLocation(), posi);
-            MoveTo(posi);
+            gmap.AddPlayer(this);
+            //MoveTo(posi);
 
         }
 
@@ -34,61 +32,32 @@ namespace Gipton
             {
                 gmap.Move(directions.up, speed);
                 //ChangePosition(position + new Vector2(0, -speed));
-                if(upcount < bpixels)
-                {
-                    upcount += speed;
-                    downcount -= speed;
-                }
-                else
-                {
-                    upcount = -bpixels;
-                    downcount = bpixels;
-                }
+
+                ycount -= speed;
+
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 gmap.Move(directions.right, speed);
                 //ChangePosition(position + new Vector2(speed, 0));
-                if(rightcount < bpixels)
-                {
-                    rightcount += speed;
-                    leftcount -= speed;
-                }
-                else
-                {
-                    leftcount = bpixels;
-                    rightcount = -bpixels;
-                }
+
+                xcount += speed;
+
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 gmap.Move(directions.down, speed);
                 //ChangePosition(position + new Vector2(0, speed));
-                if(downcount < bpixels)
-                {
-                    downcount += speed;
-                    upcount -= speed;
-                }
-                else
-                {
-                    upcount = bpixels;
-                    downcount = -bpixels;
-                }
+                
+                ycount += speed;
+
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 gmap.Move(directions.left, speed);
                 //ChangePosition(position + new Vector2(-speed, 0));
-                if(leftcount < bpixels)
-                {
-                    leftcount += speed;
-                    rightcount -= speed;
-                }
-                else
-                {
-                    leftcount = -bpixels;
-                    rightcount = bpixels;
-                }
+                
+                xcount -= speed;
 
             }
 
@@ -98,7 +67,36 @@ namespace Gipton
         public void MoveTo(Vector2 v)
         {
             gmap.Move(directions.right, v.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2);
+            xcount += v.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2;
             gmap.Move(directions.down, v.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2);
+            ycount += v.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2;
+        }
+        public void CountToZero()
+        {
+            xcount = 0;
+            ycount = 0;
+        }
+
+        public directions[] GetDirections()
+        {
+            directions[] dir = new directions[2];
+            if(ycount >= 0)
+            {
+                dir[0] = directions.down;
+            }
+            else
+            {
+                dir[0] = directions.up;
+            }
+            if(xcount >= 0)
+            {
+                dir[1] = directions.right;
+            }
+            else
+            {
+                dir[1] = directions.left;
+            }
+            return dir;
         }
 
     }

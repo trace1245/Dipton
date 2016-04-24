@@ -18,12 +18,15 @@ namespace Gipton
         PlayerCharacter player { get; set; }
         int blocksize { get; set; }
         int blockamount { get; set; }
+        int playerposition { get; set; }
+        int count;
 
 
 
 
         public MapGenerator(Texture2D texture, int size)
         {
+            count = 0;
             this.size = size;
             this.textures = textures;
             blocksize = 20;
@@ -83,6 +86,8 @@ namespace Gipton
             return -1; // даем -1 если игрок не на карте
         }
 
+
+
         public void AddCreep(EverySingleObject one, Vector2 position)
         {
             allguys.Add(one);
@@ -94,18 +99,106 @@ namespace Gipton
             this.player = player;
         }
 
-        public void Move(directions dir, float speed = 5)
+        public void Update()
         {
-
-
-
-            for(int i = 0; i < size; i++)
+            if(count == 0)
             {
-                for(int j = 0; j < size; j++)
+                UpdatePlayerPosition();
+                count = 180;
+            }
+            count--;
+        }
+
+        public void UpdatePlayerPosition()
+        {
+            for(int k = 0; k < blockamount * blockamount; k++)
+            {
+                for(int i = 0; i < blocksize; i++)
                 {
-                    parts[i, j].Move(dir, speed);
+                    for(int j = 0; j < blocksize; j++)
+                    {
+                        if(!bparts[k, i, j].IsMoved)
+                        {
+                            bparts[k, i, j].Move(directions.down, player.ycount);
+                            bparts[k, i, j].Move(directions.right, player.xcount);
+                        }
+                        if(bparts[k, i, j].IsMoved)
+                            bparts[k, i, j].IsMoved = false;
+                    }
                 }
             }
+            player.CountToZero();
+            playerposition = CheckPositionOnMap(player);
+        }
+
+        public void Move(directions dir, float speed = 5)
+        {
+            if(playerposition != -1) // если игрок вообще стоит на карте. nk - это элемент k трехмерного массива, на котором стоит игрок
+            {
+                for(int i = 0; i < blocksize; i++)
+                {
+                    for(int j = 0; j < blocksize; j++)
+                    {
+                        bparts[playerposition, i, j].Move(dir, speed); // центральный блок
+                        bparts[playerposition, i, j].IsMoved = true;
+                        if(playerposition + 1 < blockamount * blockamount)
+                        {
+                            bparts[playerposition + 1, i, j].Move(dir, speed); // нижний блок
+                            bparts[playerposition + 1, i, j].IsMoved = true;
+                        }
+                        if(playerposition - 1 >= 0)
+                        {
+                            bparts[playerposition - 1, i, j].Move(dir, speed); // верхний блок
+                            bparts[playerposition - 1, i, j].IsMoved = true;
+
+                        }
+                        if(playerposition - blockamount - 1 >= 0)
+                        {
+                            bparts[playerposition - blockamount - 1, i, j].Move(dir, speed); //левый  верхний блок
+                            bparts[playerposition - blockamount - 1, i, j].IsMoved = true;
+                        }
+                        if(playerposition - blockamount + 1 > 0)
+                        {
+                            bparts[playerposition - blockamount + 1, i, j].Move(dir, speed);// левый нижний
+                            bparts[playerposition - blockamount + 1, i, j].IsMoved = true;
+
+                        }
+                        if(playerposition - blockamount >= 0)
+                        {
+                            bparts[playerposition - blockamount, i, j].Move(dir, speed); // левый
+                            bparts[playerposition - blockamount, i, j].IsMoved = true;
+
+                        }
+                        if(playerposition + blockamount < blockamount * blockamount)
+                        {
+                            bparts[playerposition + blockamount, i, j].Move(dir, speed); //правый блок
+                            bparts[playerposition + blockamount, i, j].IsMoved = true;
+
+                        }
+                        if(playerposition + blockamount - 1 < blockamount * blockamount)
+                        {
+                            bparts[playerposition + blockamount - 1, i, j].Move(dir, speed); //правый верхний блок
+                            bparts[playerposition + blockamount - 1, i, j].IsMoved = true;
+
+                        }
+                        if(playerposition + blockamount + 1 < blockamount * blockamount)
+                        {
+                            bparts[playerposition + blockamount + 1, i, j].Move(dir, speed); // правый нижний
+                            bparts[playerposition + blockamount + 1, i, j].IsMoved = true;
+
+                        }
+
+                    }
+                }
+            }
+
+            //for(int i = 0; i < size; i++)
+            //{
+            //    for(int j = 0; j < size; j++)
+            //    {
+            //        parts[i, j].Move(dir, speed);
+            //    }
+            //}
             for(int i = 0; i < allguys.Count; i++)
             {
                 allguys[i].Move(dir, speed, true); // true сдесь значит, что это игрок двигает карту и заодно и все остальное
@@ -115,30 +208,29 @@ namespace Gipton
 
         public void Draw(SpriteBatch spritebatch)
         {
-            int nk = CheckPositionOnMap(player); // дальше отрисовка 9 блоков возле игрока
-            if(nk!=-1) // если игрок вообще стоит на карте. nk - это элемент k трехмерного массива, на котором стоит игрок
-            {
+            if(playerposition!=-1) // если игрок вообще стоит на карте. nk - это элемент k трехмерного массива, на котором стоит игрок
+            {                                       // дальше отрисовка 9 блоков возле игрока
                 for(int i = 0; i < blocksize; i++)
                 {
                     for(int j = 0; j < blocksize; j++)
                     {
-                            bparts[nk, i, j].Draw(spritebatch); // центральный блок
-                        if(nk + 1 < blockamount * blockamount)
-                            bparts[nk + 1, i, j].Draw(spritebatch); // нижний блок
-                        if(nk - 1 >= 0)
-                            bparts[nk - 1, i, j].Draw(spritebatch); // верхний блок
-                        if(nk - blockamount - 1 >= 0)
-                            bparts[nk - blockamount - 1, i, j].Draw(spritebatch); //левый  верхний блок
-                        if(nk - blockamount + 1 > 0)
-                            bparts[nk - blockamount + 1, i, j].Draw(spritebatch);// левый нижний
-                        if(nk - blockamount >= 0)
-                            bparts[nk - blockamount, i, j].Draw(spritebatch); // левый
-                        if(nk + blockamount < blockamount * blockamount)
-                            bparts[nk + blockamount, i, j].Draw(spritebatch); //правый блок
-                        if(nk + blockamount - 1 < blockamount*blockamount)
-                            bparts[nk + blockamount - 1, i, j].Draw(spritebatch); //правый верхний блок
-                        if(nk + blockamount + 1 < blockamount * blockamount)
-                            bparts[nk + blockamount + 1, i, j].Draw(spritebatch); // правый нижний
+                            bparts[playerposition, i, j].Draw(spritebatch); // центральный блок
+                        if(playerposition + 1 < blockamount * blockamount)
+                            bparts[playerposition + 1, i, j].Draw(spritebatch); // нижний блок
+                        if(playerposition - 1 >= 0)
+                            bparts[playerposition - 1, i, j].Draw(spritebatch); // верхний блок
+                        if(playerposition - blockamount - 1 >= 0)
+                            bparts[playerposition - blockamount - 1, i, j].Draw(spritebatch); //левый  верхний блок
+                        if(playerposition - blockamount + 1 > 0)
+                            bparts[playerposition - blockamount + 1, i, j].Draw(spritebatch);// левый нижний
+                        if(playerposition - blockamount >= 0)
+                            bparts[playerposition - blockamount, i, j].Draw(spritebatch); // левый
+                        if(playerposition + blockamount < blockamount * blockamount)
+                            bparts[playerposition + blockamount, i, j].Draw(spritebatch); //правый блок
+                        if(playerposition + blockamount - 1 < blockamount*blockamount)
+                            bparts[playerposition + blockamount - 1, i, j].Draw(spritebatch); //правый верхний блок
+                        if(playerposition + blockamount + 1 < blockamount * blockamount)
+                            bparts[playerposition + blockamount + 1, i, j].Draw(spritebatch); // правый нижний
 
 
                         //for(int i = 0; i<size;i++) // отрисовка всей карты

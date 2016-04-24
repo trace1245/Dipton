@@ -10,11 +10,8 @@ namespace Gipton
 {
     class Maplocation
     {
-        protected float upcount { get; set; }
-        protected float rightcount { get; set; }
-        protected float downcount { get; set; }
-        protected float leftcount { get; set; }
-        protected float bpixels { get; set; }
+        public float xcount { get; protected set; }
+        public float ycount { get; protected set; }
 
 
         public Texture2D texture { get; set; }
