@@ -12,7 +12,7 @@ namespace Gipton
     {
         //Texture2D texture { get; set; }
         //Vector2 location { get; set; }
-        public bool IsMiddlePart { get; private set; }
+        public bool IsUnintersectable { get; private set; }
         public bool IsMoved { get; set; }
 
         public TerrainPart(Texture2D texture, Vector2 location)
@@ -26,9 +26,9 @@ namespace Gipton
         {
             return this.location;
         }
-        public void MakeMiddle()
+        public void MakeUnintersectable()
         {
-            IsMiddlePart = true;
+            IsUnintersectable = true;
         }
 
     }

@@ -29,19 +29,25 @@ namespace Gipton
 
         public void Move(directions dir, float speed = 5, bool map = false)
         {
+            float nspeed = speed;
             if(map)
             {
                 this.map = true;
                 this.player = true;
             }
-            switch(dir)
+            switch(dir) // TODO врезатся в карту
             {
                 case directions.up:
                     {
+                        if(!this.map && !this.isplayer && CheckPosition().Y <= 5)
+                        {
+                            speed = -50;
+                        }
                         Vector2 NewLoc = new Vector2(location.X, location.Y + speed);
                         if(!player)
                             NewLoc = new Vector2(position.X, position.Y - 2 * speed);
                         ChangePosition(NewLoc); //location = NewLoc;
+                        speed = nspeed;
 
                         break;
                     }
@@ -52,6 +58,8 @@ namespace Gipton
                         if(!player)
                             NewLoc = new Vector2(position.X + 2 * speed, position.Y);
                         ChangePosition(NewLoc); //location = NewLoc;
+
+                        speed = nspeed;
                         break;
                     }
 
@@ -61,6 +69,8 @@ namespace Gipton
                         if(!player)
                             NewLoc = new Vector2(position.X, position.Y + (2 * speed));
                         ChangePosition(NewLoc); //location = NewLoc;
+
+                        speed = nspeed;
                         break;
                     }
 
@@ -70,6 +80,8 @@ namespace Gipton
                         if(!player)
                             NewLoc = new Vector2(position.X - 2 * speed, position.Y);
                         ChangePosition(NewLoc); //location = NewLoc;
+
+                        speed = nspeed;
                         break;
                     }
 

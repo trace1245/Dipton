@@ -17,6 +17,7 @@ namespace Gipton
         public Texture2D texture { get; set; }
         public bool player { get; protected set; }
         public bool map { get; protected set; }
+        public bool isplayer { get; protected set; }
         public Rectangle spr { get; private set; }
         public Point sprsize { get; set; }
         public Point sprlocation { get; set; }

@@ -10,7 +10,7 @@ namespace Gipton
 {
     class MapGenerator
     {
-        int size { get; set; } //кол-во клеток
+        public int size { get;private set; } //кол-во клеток
         Texture2D[] textures { get; set; }
         public TerrainPart[,] parts { get; private set; }
         public TerrainPart[,,] bparts { get; set; }
@@ -56,10 +56,14 @@ namespace Gipton
                     for(int j = 0; j < blocksize; j++)
                     {
                         bparts[k, i, j] = parts[i + ii, j + jj];
-                        if(i == blocksize - 1 && j == blocksize - 1) // если достигнут крайний нижний блок
-                        {
-                            bparts[k, blocksize / 2, blocksize / 2].MakeMiddle(); // задаем центральный блок в прогружаемом блоке
-                        }
+                        //if(i == 0 && ii == 0) // если достигнут крайний нижний блок
+                        //{
+                        //    bparts[k, i, j + jj].MakeUnintersectable();
+                        //}
+                        //if(j == 0 && jj == 0) // если достигнут крайний нижний блок
+                        //{
+                        //    bparts[k, i + ii, 0].MakeUnintersectable();
+                        //}
                     }
                 }
 
@@ -131,57 +135,71 @@ namespace Gipton
             playerposition = CheckPositionOnMap(player);
         }
 
+
+
         public void Move(directions dir, float speed = 5)
         {
+
+
+            //if(player.CheckPosition().X > 0 || player.CheckPosition().Y > 0)
+            //{
+            //    speed = 5;
+            //}
+
+
             if(playerposition != -1) // если игрок вообще стоит на карте. nk - это элемент k трехмерного массива, на котором стоит игрок
             {
+                parts[0, 0].Move(dir, speed);
+                parts[0, 0].IsMoved = true;
                 for(int i = 0; i < blocksize; i++)
                 {
                     for(int j = 0; j < blocksize; j++)
                     {
-                        bparts[playerposition, i, j].Move(dir, speed); // центральный блок
+
+                        if(bparts[playerposition, i, j] != parts[0, 0])
+                            bparts[playerposition, i, j].Move(dir, speed); // центральный блок
                         bparts[playerposition, i, j].IsMoved = true;
-                        if(playerposition + 1 < blockamount * blockamount)
+                        if((playerposition + 1 < blockamount * blockamount) && (bparts[playerposition + 1, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition + 1, i, j].Move(dir, speed); // нижний блок
                             bparts[playerposition + 1, i, j].IsMoved = true;
                         }
-                        if(playerposition - 1 >= 0)
+                        if((playerposition - 1 >= 0) && (bparts[playerposition - 1, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition - 1, i, j].Move(dir, speed); // верхний блок
                             bparts[playerposition - 1, i, j].IsMoved = true;
 
                         }
-                        if(playerposition - blockamount - 1 >= 0)
+                        if((playerposition - blockamount - 1 >= 0) && (bparts[playerposition - blockamount - 1, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition - blockamount - 1, i, j].Move(dir, speed); //левый  верхний блок
                             bparts[playerposition - blockamount - 1, i, j].IsMoved = true;
                         }
-                        if(playerposition - blockamount + 1 > 0)
+                        if((playerposition - blockamount + 1 > 0) && (bparts[playerposition - blockamount + 1, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition - blockamount + 1, i, j].Move(dir, speed);// левый нижний
                             bparts[playerposition - blockamount + 1, i, j].IsMoved = true;
 
                         }
-                        if(playerposition - blockamount >= 0)
+                        if((playerposition - blockamount >= 0) && (bparts[playerposition - blockamount, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition - blockamount, i, j].Move(dir, speed); // левый
                             bparts[playerposition - blockamount, i, j].IsMoved = true;
 
                         }
-                        if(playerposition + blockamount < blockamount * blockamount)
+                        if((playerposition + blockamount < blockamount * blockamount) && (bparts[playerposition + blockamount, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition + blockamount, i, j].Move(dir, speed); //правый блок
                             bparts[playerposition + blockamount, i, j].IsMoved = true;
 
                         }
-                        if(playerposition + blockamount - 1 < blockamount * blockamount)
+                        if((playerposition + blockamount - 1 < blockamount * blockamount) && (bparts[playerposition + blockamount - 1, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition + blockamount - 1, i, j].Move(dir, speed); //правый верхний блок
                             bparts[playerposition + blockamount - 1, i, j].IsMoved = true;
 
                         }
-                        if(playerposition + blockamount + 1 < blockamount * blockamount)
+                        if((playerposition + blockamount + 1 < blockamount * blockamount) && (bparts[playerposition + blockamount + 1, i, j] != bparts[0, 0, 0]))
                         {
                             bparts[playerposition + blockamount + 1, i, j].Move(dir, speed); // правый нижний
                             bparts[playerposition + blockamount + 1, i, j].IsMoved = true;
@@ -214,7 +232,7 @@ namespace Gipton
                 {
                     for(int j = 0; j < blocksize; j++)
                     {
-                            bparts[playerposition, i, j].Draw(spritebatch); // центральный блок
+                        bparts[playerposition, i, j].Draw(spritebatch); // центральный блок
                         if(playerposition + 1 < blockamount * blockamount)
                             bparts[playerposition + 1, i, j].Draw(spritebatch); // нижний блок
                         if(playerposition - 1 >= 0)

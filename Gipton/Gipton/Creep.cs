@@ -19,7 +19,7 @@ namespace Gipton
             //this.location = location; // new Vector2(200,200);
             gmap.AddCreep(this, position);
 
-            speed = 2;
+            speed = 0.5f;
         }
 
         //public void Move()
