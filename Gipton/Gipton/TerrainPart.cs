@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Gipton
 {
-    class TerrainPart : EverySingleObject
+    class TerrainPart : EverySingleObject // это блоки
     {
         //Texture2D texture { get; set; }
         //Vector2 location { get; set; }
-        public bool IsUnintersectable { get; private set; }
-        public bool IsMoved { get; set; }
+        public bool IsUnintersectable { get; private set; } // нельзя пересекать. не работает
+        public bool IsMoved { get; set; } // перемещены. работает
 
         public TerrainPart(Texture2D texture, Vector2 location)
         {

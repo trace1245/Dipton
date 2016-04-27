@@ -11,22 +11,22 @@ namespace Gipton
     class MapGenerator
     {
         public int size { get;private set; } //кол-во клеток
-        Texture2D[] textures { get; set; }
-        public TerrainPart[,] parts { get; private set; }
-        public TerrainPart[,,] bparts { get; set; }
-        List<EverySingleObject> allguys { get; set; }
-        PlayerCharacter player { get; set; }
-        int blocksize { get; set; }
-        int blockamount { get; set; }
-        int playerposition { get; set; }
-        int count;
+        Texture2D[] textures { get; set; } // массив всех текстур блоков. сейчас не используется, текстура у нас одна 
+        public TerrainPart[,] parts { get; private set; } //карта
+        public TerrainPart[,,] bparts { get; set; }//разбитая на бльшие прогружаемые области карта
+        List<EverySingleObject> allguys { get; set; }//массив всех обьектов на карте, кроме игрока
+        PlayerCharacter player { get; set; } //соб-сно, ссылка на игрока
+        int blocksize { get; set; }// размер прогружаемой области
+        int blockamount { get; set; } //колво областей. само посчитается
+        int playerposition { get; set; }//номер области(номер элемента массива - k), в которой сейчас игрок
+        int count; // какой-то счетчик. зачем-то нужен
 
 
 
 
         public MapGenerator(Texture2D texture, int size)
         {
-            count = 0;
+            count = 0; // счетчик, считающий, за какое кол-во секунд обновится карта. всегда сначала ноль, менять в методе update 
             this.size = size;
             this.textures = textures;
             blocksize = 20;
@@ -92,28 +92,28 @@ namespace Gipton
 
 
 
-        public void AddCreep(EverySingleObject one, Vector2 position)
+        public void AddCreep(EverySingleObject one, Vector2 position)// добавляем обьект в список всего, что на карте
         {
             allguys.Add(one);
             one.LoadMap(parts[0, 0].GetLocation(), position);
 
         }
-        public void AddPlayer(PlayerCharacter player)
+        public void AddPlayer(PlayerCharacter player) // получаем ссылку на игрока
         {
             this.player = player;
         }
 
-        public void Update()
+        public void Update()// считаем, как часто обновлять карту. ну и вообще, вызывается 30 раз в сек(наверно), так что чего интересного сюда можно присобачить
         {
             if(count == 0)
             {
                 UpdatePlayerPosition();
-                count = 180;
+                count = 180;//тут кол-во секунд.
             }
             count--;
         }
 
-        public void UpdatePlayerPosition()
+        public void UpdatePlayerPosition()// подгружаем все блоки, расставляя их на свои места, а в конце узнаем в каком прогружаемом блоке игрок сидит
         {
             for(int k = 0; k < blockamount * blockamount; k++)
             {
@@ -137,7 +137,7 @@ namespace Gipton
 
 
 
-        public void Move(directions dir, float speed = 5)
+        public void Move(directions dir, float speed = 5) // двигаем всю карту. вызывается только player'ом
         {
 
 
@@ -146,7 +146,7 @@ namespace Gipton
             //    speed = 5;
             //}
 
-
+            //двигаем прогруженные блоки
             if(playerposition != -1) // если игрок вообще стоит на карте. nk - это элемент k трехмерного массива, на котором стоит игрок
             {
                 parts[0, 0].Move(dir, speed);
@@ -217,14 +217,14 @@ namespace Gipton
             //        parts[i, j].Move(dir, speed);
             //    }
             //}
-            for(int i = 0; i < allguys.Count; i++)
+            for(int i = 0; i < allguys.Count; i++) // двигаем все обьекты
             {
                 allguys[i].Move(dir, speed, true); // true сдесь значит, что это игрок двигает карту и заодно и все остальное
             }
         }
 
 
-        public void Draw(SpriteBatch spritebatch)
+        public void Draw(SpriteBatch spritebatch)//прорисовываем прогруженные блоки
         {
             if(playerposition!=-1) // если игрок вообще стоит на карте. nk - это элемент k трехмерного массива, на котором стоит игрок
             {                                       // дальше отрисовка 9 блоков возле игрока

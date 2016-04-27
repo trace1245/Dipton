@@ -17,7 +17,7 @@ namespace Gipton
             this.gmap = gmap;
             this.texture = texture;
             //this.location = location; // new Vector2(200,200);
-            gmap.AddCreep(this, position);
+            gmap.AddCreep(this, position); // положение крипа на карте задаем
 
             speed = 0.5f;
         }
