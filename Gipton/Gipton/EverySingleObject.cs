@@ -44,7 +44,7 @@ namespace Gipton
                 this.map = true;
                 this.player = true;
             }
-            switch(dir) // TODO врезатся в карту
+            switch(dir)
             {
                 case directions.up:
                     {
@@ -63,6 +63,10 @@ namespace Gipton
 
                 case directions.right:
                     {
+                        if(!this.map && !this.isplayer && CheckPosition().X >= gmap.size * 80 - 5)
+                        {
+                            speed = -50;
+                        }
                         Vector2 NewLoc = new Vector2(location.X - speed, location.Y);
                         if(!player)
                             NewLoc = new Vector2(position.X + 2 * speed, position.Y);
@@ -74,6 +78,10 @@ namespace Gipton
 
                 case directions.down:
                     {
+                        if(!this.map && !this.isplayer && CheckPosition().Y >= gmap.size * 80 - 5)
+                        {
+                            speed = -50;
+                        }
                         Vector2 NewLoc = new Vector2(location.X, location.Y - speed);
                         if(!player)
                             NewLoc = new Vector2(position.X, position.Y + (2 * speed));
@@ -85,6 +93,10 @@ namespace Gipton
 
                 case directions.left:
                     {
+                        if(!this.map && !this.isplayer && CheckPosition().X <= 5)
+                        {
+                            speed = -50;
+                        }
                         Vector2 NewLoc = new Vector2(location.X + speed, location.Y);
                         if(!player)
                             NewLoc = new Vector2(position.X - 2 * speed, position.Y);

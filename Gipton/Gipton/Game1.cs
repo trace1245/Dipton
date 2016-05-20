@@ -93,7 +93,7 @@ namespace Gipton
             gmap.Update();
             player.Move();
             //creeps[0].Move(directions.down, 1);
-            creeps[0].Move(directions.up, 1);
+            creeps[0].Move(directions.left, 1);
 
             //if(player.spr.Intersects(new Rectangle(new Point(-1, -1), new Point(10, 10))))
             //{
