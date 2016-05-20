@@ -29,6 +29,11 @@ namespace Gipton
 
         public void Move()
         {
+            if(Keyboard.GetState().IsKeyDown(Keys.LeftShift)) //тык shift и ускоряемся
+            {
+                speed = 15;
+
+            }
             if(Keyboard.GetState().IsKeyDown(Keys.Up))// если тык кнопка вверх
             {
                 if(CheckPosition().Y <= 5)//проверяем чтоб не в край карты
@@ -77,7 +82,7 @@ namespace Gipton
                 speed = 5;
 
             }
-
+            speed = 5;
 
         }
 
